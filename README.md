@@ -10,6 +10,12 @@ Install dependencies:
 npm install
 ```
 
+Install the Playwright Chromium browser:
+
+```bash
+npx playwright install chromium
+```
+
 Create a saved browser session:
 
 ```bash
