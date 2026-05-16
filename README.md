@@ -1,6 +1,6 @@
 # HAI Script
 
-Node.js Playwright script for checking Handshake AI task stages.
+Node.js script for checking Handshake AI task stages via the HAI API.
 
 ## Setup
 
@@ -8,12 +8,6 @@ Install dependencies:
 
 ```bash
 npm install
-```
-
-Install the Playwright Chromium browser:
-
-```bash
-npx playwright install chromium
 ```
 
 Create a saved browser session:
@@ -26,11 +20,10 @@ Log in when the browser opens, then press Enter in the console. This writes `aut
 
 ## Configure
 
-Open `main.js` and add your Handshake project tasks URL to `PROJECT_TASKS_URL` near line 4:
+Open `main.js` and set your project ID in `ANNOTATION_PROJECT_ID`:
 
 ```js
-const PROJECT_TASKS_URL =
-  "https://ai.joinhandshake.com/fellow/YOUR_PROJECT_ID/tasks";
+const ANNOTATION_PROJECT_ID = "YOUR_PROJECT_ID";
 ```
 
 ## Run
@@ -39,11 +32,15 @@ const PROJECT_TASKS_URL =
 node main.js
 ```
 
-The script opens the configured project task page, checks each task ID, and writes the results to `stages.json`.
+Fetches all tasks from the API and prints a table of task IDs and their current pipeline stages. On subsequent runs, shows a diff of any stage changes or new tasks since the last run.
 
-Generated files:
+To skip the diff:
 
-- `ids.json`
-- `stages.json`
+```bash
+node main.js --no-diff
+```
 
 Both generated files are ignored by git.
+
+- `ids.json` - list of task IDs
+- `stages.json` - list of `{ id, stage }` results
